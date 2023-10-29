@@ -10,7 +10,7 @@ const app = express();
 app.use(cors({
     origin: 'https://guvi-user-app.vercel.app',
     methods: ['POST', 'GET'],
-    credentials: true,
+    // credentials: true,
 }));
 
 app.use(express.json());
