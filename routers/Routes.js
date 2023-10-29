@@ -9,15 +9,15 @@ router.post('/',async (req,res) => {
         const user = await ModelSchema.findOne({email : email})
         if(user) {
             if(user.password === password){
-                res.json('SUCCESS')
+                return res.json('SUCCESS')
             } else{
-                res.json('password incorrect')
+                return res.json('password incorrect')
             }
         } else{
-            res.json("not a user")
+            return res.json("not a user")
         }
     } catch (error) {
-        console.log(error)
+        return res.json(error.message)
     }
 })
 
@@ -28,17 +28,20 @@ router.post('/signup',async(req,res) => {
         const user = await ModelSchema.findOne({email : email})
         if(user){
             console.log("existing user")
-            res.json("existing user")
+            return res.json("existing user")
         } else {
             const newuser = await ModelSchema.create(req.body)
-            res.json(await ModelSchema.find())
+            return res.json("SUCCESS")
+            
         }
     } catch (error) {
-        console.log(error)
+        return res.json(error.message)
     }
    
 })
-
+router.get('/',(req,res) => {
+    res.json('hello vamsi')
+})
 router.get('/userinfo/:id', async(req,res) => {
     try {
         const user = await ModelSchema.findOne({email : req.params.id}).select('-password');
@@ -48,7 +51,7 @@ router.get('/userinfo/:id', async(req,res) => {
             res.json("error")
         }
     } catch (error) {
-        res.json('error')
+        res.json(error.message)
     }
     
 })
