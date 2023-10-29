@@ -7,7 +7,13 @@ const DataBase_Connection = require('./mongoDB config/connection')
 
 
 const app = express()
-app.use(cors())
+app.use(cors(
+    {
+        origin: ['https://guvi-user-app.vercel.app/'],
+        methods: ["POST","GET"],
+        credentials: true
+    }
+))
 app.use(express.json())
 app.use('/',Routes)
 
