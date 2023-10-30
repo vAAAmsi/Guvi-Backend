@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
-const DBURL = process.env.URI
+const dburl = process.env.DB_URL
 
-const DataBase_Connection = async() => {
+const DBConncetion = async() => {
     try{
-        await mongoose.connect(DBURL,{
+        await mongoose.connect(dburl,{
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
@@ -14,4 +14,4 @@ const DataBase_Connection = async() => {
     }
 }
 
-module.exports = DataBase_Connection;
+module.exports = DBConncetion ;
