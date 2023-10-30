@@ -23,7 +23,9 @@ router.post('/',async (req,res) => {
 
 router.post('/signup',async(req,res) => {
 
-    const {name, email, password} = req.body;
+    const {name, email, password,age,gender,dob,phnumber} = req.body;
+    console.log(name,age,gender,dob)
+    // res.json({name,dob,gender})
     try {
         const user = await ModelSchema.findOne({email : email})
         if(user){
@@ -43,8 +45,10 @@ router.get('/',(req,res) => {
     res.json('hello vamsi')
 })
 router.get('/userinfo/:id', async(req,res) => {
+    console.log(req.params.id)
     try {
         const user = await ModelSchema.findOne({email : req.params.id}).select('-password');
+        console.log(user)
         if(user) {
             res.json(user)
         } else{
@@ -54,6 +58,17 @@ router.get('/userinfo/:id', async(req,res) => {
         res.json(error.message)
     }
     
+})
+
+router.put('/update/:id', async(req,res) => {
+    const updateddata = req.body;
+    const user = await ModelSchema.findOne({_id : req.params.id})
+    try {
+        const ud = await ModelSchema.findByIdAndUpdate(req.params.id,updateddata,{ new: true })
+        res.status(201).json(ud)
+    } catch (error) {
+        res.status(error.message)
+    }
 })
 
 module.exports = router;
