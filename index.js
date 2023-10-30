@@ -7,7 +7,8 @@ const DataBase_Connection = require('./mongoDB config/connection');
 const app = express();
 
 app.use(cors({
-    origin: 'https://guvi-user-app.vercel.app'   
+    origin: ['http://localhost:3000', 'https://guvi-user-app.vercel.app']
+      
 }));
 
 
